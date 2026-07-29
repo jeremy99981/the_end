@@ -8,7 +8,7 @@ Générer `RecapBrun.exe` avec le script de publication, le placer dans un dossi
 
 La date du jour est remplie automatiquement. Le champ équipier est facultatif. Le brouillon est sauvegardé automatiquement dans `%LOCALAPPDATA%\RecapBrun\draft.json` et une restauration est proposée au prochain démarrage. Les raccourcis sont `Ctrl+P` pour imprimer et `Ctrl+Maj+Suppr` pour effacer après confirmation.
 
-`Imprimer` ouvre le dialogue natif Windows : l’utilisateur choisit l’imprimante, les copies, l’orientation et toutes les options exposées par le pilote. Après une impression envoyée, l’effacement reste optionnel.
+`Imprimer` ouvre le dialogue natif Windows : l’utilisateur choisit l’imprimante, les copies, l’orientation et toutes les options exposées par le pilote. La fiche est composée sur une seule page A4, utilise toute la largeur utile et réduit automatiquement le contenu si les textes sont longs. Après une impression envoyée, l’effacement reste optionnel.
 
 ## Architecture
 
