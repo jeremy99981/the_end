@@ -6,7 +6,7 @@ namespace TheEnd.Core.Tests;
 
 public sealed class CoreTests
 {
-    [Fact] public void FrenchDateIsReadable() => Assert.Equal("lundi 27 juillet 2026", FrenchDateFormatter.Format(new DateTime(2026, 7, 27)));
+    [Fact] public void FrenchDateIsReadable() => Assert.Equal("Lundi 27 juillet 2026", FrenchDateFormatter.Format(new DateTime(2026, 7, 27)));
 
     [Fact] public void EmptySectionsHaveFallbackText()
     {
