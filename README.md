@@ -4,7 +4,7 @@ The End est une petite application Windows portable destinée à préparer la tr
 
 ## Utilisation
 
-Télécharger `TheEnd.exe` depuis l’artifact GitHub Actions `TheEnd-Windows-x64` ou depuis une release, le placer dans un dossier accessible (Bureau, Documents ou clé USB), puis le lancer par double-clic. Aucune installation, élévation UAC ou version préalable de .NET n’est nécessaire.
+Générer `TheEnd.exe` avec le script de publication, le placer dans un dossier accessible (Bureau, Documents ou clé USB), puis le lancer par double-clic. Aucune installation, élévation UAC ou version préalable de .NET n’est nécessaire.
 
 La date du jour est remplie automatiquement. Le champ équipier est facultatif. Le brouillon est sauvegardé automatiquement dans `%LOCALAPPDATA%\TheEnd\draft.json` et une restauration est proposée au prochain démarrage. Les raccourcis sont `Ctrl+P` pour imprimer et `Ctrl+Maj+Suppr` pour effacer après confirmation.
 
@@ -34,9 +34,15 @@ Le build portable est :
 dotnet publish src/TheEnd.App/TheEnd.App.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o artifacts/TheEnd-Windows-x64
 ```
 
-## GitHub Actions
+## Générer l’exécutable Windows depuis macOS
 
-`.github/workflows/build-windows.yml` exécute les tests sur `windows-latest`, publie un exécutable x64 autonome et met à disposition l’artifact nommé `TheEnd-Windows-x64`. Un tag `v1.0.0` déclenche également la création d’une GitHub Release avec `TheEnd.exe` en pièce jointe.
+Le script `scripts/build-windows.sh` utilise le ciblage Windows du SDK .NET pour produire un exécutable x64 autonome et single-file, sans nécessiter Windows sur la machine de développement :
+
+```bash
+./scripts/build-windows.sh
+```
+
+Le résultat est `artifacts/TheEnd-Windows-x64/TheEnd.exe`. Le dossier `artifacts/` est ignoré par Git. Le fichier obtenu peut être copié sur le Bureau, dans Documents, sur une clé USB ou dans un dossier partagé Windows.
 
 ## Sécurité et données
 
