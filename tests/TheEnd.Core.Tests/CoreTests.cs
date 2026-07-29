@@ -28,4 +28,29 @@ public sealed class CoreTests
         Assert.False(File.Exists(store.FilePath));
         Directory.Delete(root, true);
     }
+
+    [Fact] public async Task ConcurrentSavesAlwaysLeaveReadableJson()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "RecapBrunTests", Guid.NewGuid().ToString("N"));
+        var store = new DraftStore(root);
+        var saves = Enumerable.Range(0, 40)
+            .Select(i => store.SaveAsync(new HandoverDraft($"Équipier {i}", $"Tâche {i}", $"Objectif {i}")));
+        await Task.WhenAll(saves);
+        var restored = await store.LoadAsync();
+        Assert.NotNull(restored);
+        Assert.StartsWith("Équipier ", restored!.Teammate);
+        Assert.Empty(Directory.GetFiles(root, "*.tmp"));
+        store.Delete();
+        Directory.Delete(root, true);
+    }
+
+    [Fact] public void SynchronousSaveCompletesWithoutAsyncWait()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "RecapBrunTests", Guid.NewGuid().ToString("N"));
+        var store = new DraftStore(root);
+        store.Save(new HandoverDraft("Équipier", "Une tâche", "Un objectif"));
+        Assert.True(File.Exists(store.FilePath));
+        store.Delete();
+        Directory.Delete(root, true);
+    }
 }

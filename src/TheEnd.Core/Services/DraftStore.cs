@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text;
 using TheEnd.Core.Models;
 
 namespace TheEnd.Core.Services;
@@ -15,12 +16,26 @@ public sealed class DraftStore
 
     public string FilePath => _filePath;
 
-    public async Task SaveAsync(HandoverDraft draft, CancellationToken cancellationToken = default)
+    public void Save(HandoverDraft draft)
     {
         var directory = Path.GetDirectoryName(_filePath)!;
         Directory.CreateDirectory(directory);
-        await using var stream = File.Create(_filePath);
-        await JsonSerializer.SerializeAsync(stream, draft, cancellationToken: cancellationToken);
+        var temporaryPath = $"{_filePath}.{Guid.NewGuid():N}.tmp";
+        try
+        {
+            var json = JsonSerializer.Serialize(draft);
+            File.WriteAllText(temporaryPath, json, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
+            File.Move(temporaryPath, _filePath, overwrite: true);
+        }
+        finally
+        {
+            try { if (File.Exists(temporaryPath)) File.Delete(temporaryPath); } catch (IOException) { }
+        }
+    }
+
+    public Task SaveAsync(HandoverDraft draft, CancellationToken cancellationToken = default)
+    {
+        return Task.Run(() => Save(draft), cancellationToken);
     }
 
     public async Task<HandoverDraft?> LoadAsync(CancellationToken cancellationToken = default)
@@ -33,6 +48,7 @@ public sealed class DraftStore
         }
         catch (JsonException) { return null; }
         catch (IOException) { return null; }
+        catch (UnauthorizedAccessException) { return null; }
     }
 
     public void Delete() { try { if (File.Exists(_filePath)) File.Delete(_filePath); } catch (IOException) { } }

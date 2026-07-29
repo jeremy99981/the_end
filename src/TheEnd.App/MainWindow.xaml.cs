@@ -2,6 +2,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Threading;
 using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using TheEnd.Core.Models;
@@ -25,9 +26,9 @@ public partial class MainWindow : Window
         InputBindings.Add(new KeyBinding(ClearCommand, new KeyGesture(Key.Delete, ModifierKeys.Control | ModifierKeys.Shift)));
         DateText.Text = FrenchDateFormatter.Format(DateTime.Today);
         _saveTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(700) };
-        _saveTimer.Tick += async (_, _) => { _saveTimer.Stop(); await SaveDraftAsync(); };
+        _saveTimer.Tick += SaveTimerTick;
         Loaded += LoadedAsync;
-        Closing += (_, _) => SaveDraftAsync().GetAwaiter().GetResult();
+        Closing += ClosingSave;
     }
 
     private async void LoadedAsync(object sender, RoutedEventArgs e)
@@ -39,6 +40,23 @@ public partial class MainWindow : Window
         _restoring = true;
         TeammateTextBox.Text = draft.Teammate; RemainingTextBox.Text = draft.RemainingTasks; GoalsTextBox.Text = draft.TomorrowGoals;
         _restoring = false;
+    }
+
+    private async void SaveTimerTick(object? sender, EventArgs e)
+    {
+        _saveTimer.Stop();
+        try { await SaveDraftAsync(); }
+        catch (IOException) { }
+        catch (UnauthorizedAccessException) { }
+    }
+
+    private void ClosingSave(object? sender, CancelEventArgs e)
+    {
+        // Closing must remain synchronous and must never block on an async continuation.
+        // DraftStore.Save is atomic and completes quickly for this small local JSON file.
+        try { _draftStore.Save(CurrentDraft); }
+        catch (IOException) { }
+        catch (UnauthorizedAccessException) { }
     }
 
     private void InputChanged(object sender, TextChangedEventArgs e) { if (!_restoring) { _saveTimer.Stop(); _saveTimer.Start(); } }
