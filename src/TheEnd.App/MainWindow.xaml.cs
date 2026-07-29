@@ -3,6 +3,8 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using TheEnd.Core.Models;
 using TheEnd.Core.Services;
 
@@ -63,7 +65,8 @@ public partial class MainWindow : Window
         {
             var dialog = new PrintDialog();
             if (dialog.ShowDialog() != true) return;
-            dialog.PrintDocument(PrintDocumentFactory.Create(CurrentDraft, DateTime.Today).Paginator, "The End — transmission de fin de journée");
+            var document = PrintDocumentFactory.Create(CurrentDraft, DateTime.Today);
+            dialog.PrintDocument(((IDocumentPaginatorSource)document).DocumentPaginator, "The End — transmission de fin de journée");
             if (MessageBox.Show("Impression envoyée. Effacer la fiche pour préparer une nouvelle transmission ?", "The End", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes) ClearClick(sender, e);
         }
         catch (Exception ex) when (ex is InvalidOperationException or Win32Exception)
