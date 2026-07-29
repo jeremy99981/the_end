@@ -1,5 +1,6 @@
 using TheEnd.Core.Models;
 using TheEnd.Core.Services;
+using Xunit;
 
 namespace TheEnd.Core.Tests;
 
