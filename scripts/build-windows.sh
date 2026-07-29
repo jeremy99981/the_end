@@ -3,7 +3,7 @@ set -euo pipefail
 
 project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 dotnet_command="${DOTNET:-dotnet}"
-output_dir="$project_root/artifacts/TheEnd-Windows-x64"
+output_dir="$project_root/artifacts/RecapBrun-Windows-x64"
 
 if ! command -v "$dotnet_command" >/dev/null 2>&1; then
   echo "dotnet SDK introuvable. Installez le SDK .NET 8 ou définissez DOTNET vers son exécutable." >&2
@@ -23,5 +23,5 @@ mkdir -p "$output_dir"
   -p:DebugType=None \
   -o "$output_dir"
 
-mv "$output_dir/TheEnd.App.exe" "$output_dir/TheEnd.exe"
-echo "Exécutable créé : $output_dir/TheEnd.exe"
+mv "$output_dir/TheEnd.App.exe" "$output_dir/RecapBrun.exe"
+echo "Exécutable créé : $output_dir/RecapBrun.exe"

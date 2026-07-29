@@ -11,7 +11,7 @@ internal static class PrintDocumentFactory
     public static FlowDocument Create(HandoverDraft draft, DateTime date)
     {
         var document = new FlowDocument { PagePadding = new Thickness(72), FontFamily = new FontFamily("Segoe UI"), FontSize = 13, ColumnWidth = double.PositiveInfinity };
-        Add(document, "THE END", 28, true, Brushes.Black, 0);
+        Add(document, "RÉCAP BRUN", 28, true, Brushes.Black, 0);
         Add(document, "Transmission de fin de journée", 16, false, Brushes.Gray, 2);
         Add(document, $"Date : {FrenchDateFormatter.Format(date)}", 13, false, Brushes.Black, 24);
         Add(document, $"Équipier : {HandoverTextFormatter.SectionText(draft.Teammate)}", 13, false, Brushes.Black, 2);

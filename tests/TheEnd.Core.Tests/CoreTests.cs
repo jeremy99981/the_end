@@ -11,13 +11,14 @@ public sealed class CoreTests
     [Fact] public void EmptySectionsHaveFallbackText()
     {
         var text = HandoverTextFormatter.ToPlainText(new HandoverDraft("", "", ""), new DateTime(2026, 7, 27));
+        Assert.Contains("RÉCAP BRUN", text);
         Assert.Contains("Aucun élément renseigné.", text);
         Assert.Contains("OBJECTIFS DE DEMAIN", text);
     }
 
     [Fact] public async Task DraftStoreRoundTripsAccentsAndLongText()
     {
-        var root = Path.Combine(Path.GetTempPath(), "TheEndTests", Guid.NewGuid().ToString("N"));
+        var root = Path.Combine(Path.GetTempPath(), "RecapBrunTests", Guid.NewGuid().ToString("N"));
         var store = new DraftStore(root);
         var draft = new HandoverDraft("Élodie O’Neil", string.Join("\n", Enumerable.Repeat("Contrôler les ruptures : café, thé, œufs — demain", 100)), "Préparer l’exposition promotionnelle.");
         await store.SaveAsync(draft);

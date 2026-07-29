@@ -10,7 +10,7 @@ public sealed class DraftStore
     public DraftStore(string? localAppData = null)
     {
         var root = localAppData ?? Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        _filePath = Path.Combine(root, "TheEnd", "draft.json");
+        _filePath = Path.Combine(root, "RecapBrun", "draft.json");
     }
 
     public string FilePath => _filePath;

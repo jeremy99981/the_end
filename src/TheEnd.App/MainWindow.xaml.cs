@@ -4,7 +4,6 @@ using System.Windows.Threading;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using TheEnd.Core.Models;
 using TheEnd.Core.Services;
 
@@ -35,7 +34,7 @@ public partial class MainWindow : Window
     {
         var draft = await _draftStore.LoadAsync();
         if (draft is null || draft.IsEmpty) return;
-        var answer = MessageBox.Show("Un brouillon a été retrouvé. Voulez-vous le restaurer ?", "The End", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var answer = MessageBox.Show("Un brouillon a été retrouvé. Voulez-vous le restaurer ?", "Récap Brun", MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (answer != MessageBoxResult.Yes) return;
         _restoring = true;
         TeammateTextBox.Text = draft.Teammate; RemainingTextBox.Text = draft.RemainingTasks; GoalsTextBox.Text = draft.TomorrowGoals;
@@ -48,15 +47,8 @@ public partial class MainWindow : Window
 
     private void ClearClick(object sender, RoutedEventArgs e)
     {
-        if (CurrentDraft.IsEmpty || MessageBox.Show("Effacer les informations saisies ?", "The End", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes) return;
+        if (CurrentDraft.IsEmpty || MessageBox.Show("Effacer les informations saisies ?", "Récap Brun", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes) return;
         TeammateTextBox.Clear(); RemainingTextBox.Clear(); GoalsTextBox.Clear(); _draftStore.Delete();
-    }
-
-    private void PreviewClick(object sender, RoutedEventArgs e)
-    {
-        var preview = new Window { Title = "Aperçu — The End", Width = 850, Height = 1000, Owner = this, Background = Brushes.Gray };
-        preview.Content = new DocumentViewer { Document = PrintDocumentFactory.Create(CurrentDraft, DateTime.Today) };
-        preview.ShowDialog();
     }
 
     private void PrintClick(object sender, RoutedEventArgs e)
@@ -66,10 +58,10 @@ public partial class MainWindow : Window
             var dialog = new PrintDialog();
             if (dialog.ShowDialog() != true) return;
             var document = PrintDocumentFactory.Create(CurrentDraft, DateTime.Today);
-            dialog.PrintDocument(((IDocumentPaginatorSource)document).DocumentPaginator, "The End — transmission de fin de journée");
-            if (MessageBox.Show("Impression envoyée. Effacer la fiche pour préparer une nouvelle transmission ?", "The End", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes) ClearClick(sender, e);
+            dialog.PrintDocument(((IDocumentPaginatorSource)document).DocumentPaginator, "Récap Brun — transmission de fin de journée");
+            if (MessageBox.Show("Impression envoyée. Effacer la fiche pour préparer une nouvelle transmission ?", "Récap Brun", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes) ClearClick(sender, e);
         }
         catch (Exception ex) when (ex is InvalidOperationException or Win32Exception)
-        { MessageBox.Show($"L’impression n’a pas pu être lancée.\n\n{ex.Message}", "The End", MessageBoxButton.OK, MessageBoxImage.Error); }
+        { MessageBox.Show($"L’impression n’a pas pu être lancée.\n\n{ex.Message}", "Récap Brun", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
 }
