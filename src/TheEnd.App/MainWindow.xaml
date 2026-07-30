@@ -1,12 +1,43 @@
-<Window x:Class="TheEnd.App.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Récap Brun — Transmission de fin de journée" Width="1000" Height="820" MinWidth="760" MinHeight="650" Background="{StaticResource Canvas}" WindowStartupLocation="CenterScreen">
-  <Grid Margin="36,30">
-    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-    <StackPanel Grid.Row="0"><TextBlock Text="RÉCAP BRUN" FontSize="30" FontWeight="Bold" Foreground="{StaticResource Ink}"/><TextBlock Text="Transmission de fin de journée" FontSize="18" Foreground="{StaticResource Muted}" Margin="0,2,0,0"/></StackPanel>
-    <Grid Grid.Row="1" Margin="0,26,0,22"><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="270"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Date :" FontWeight="SemiBold" Foreground="{StaticResource Ink}" VerticalAlignment="Center"/><TextBlock x:Name="DateText" Grid.Column="1" Margin="10,0,0,0" Foreground="{StaticResource Muted}" VerticalAlignment="Center"/><TextBlock Grid.Column="3" Text="Équipier :" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,10,0"/><TextBox x:Name="TeammateTextBox" Grid.Column="4" Height="44" Width="210" Padding="10,8" AcceptsReturn="False" TextChanged="InputChanged" ToolTip="Facultatif"/></Grid>
-    <Grid Grid.Row="2"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="24"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-      <Border Grid.Column="0" Background="{StaticResource Panel}" CornerRadius="10" Padding="22"><DockPanel><TextBlock DockPanel.Dock="Top" Text="Ce qu’il reste à faire pour demain" FontSize="20" FontWeight="Bold" Foreground="{StaticResource Ink}" Margin="0,0,0,14"/><TextBlock DockPanel.Dock="Bottom" Text="Une tâche par ligne, si besoin." Foreground="{StaticResource Muted}" Margin="0,12,0,0"/><TextBox x:Name="RemainingTextBox" TextChanged="InputChanged"/></DockPanel></Border>
-      <Border Grid.Column="2" Background="{StaticResource Panel}" CornerRadius="10" Padding="22"><DockPanel><TextBlock DockPanel.Dock="Top" Text="Objectifs de demain" FontSize="20" FontWeight="Bold" Foreground="{StaticResource Ink}" Margin="0,0,0,14"/><TextBlock DockPanel.Dock="Bottom" Text="Les priorités à transmettre à l’équipe." Foreground="{StaticResource Muted}" Margin="0,12,0,0"/><TextBox x:Name="GoalsTextBox" TextChanged="InputChanged"/></DockPanel></Border>
-    </Grid>
-    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,24,0,0"><Button Content="Effacer" Click="ClearClick" MinWidth="110"/><Button Content="Imprimer" Click="PrintClick" MinWidth="140" Background="{StaticResource Accent}" Foreground="White"/></StackPanel>
+<Window x:Class="TheEnd.App.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Récap Brun — Electro Dépôt" Width="1080" Height="850" MinWidth="820" MinHeight="680" Background="{StaticResource Canvas}" WindowStartupLocation="CenterScreen">
+  <Grid>
+    <Grid.RowDefinitions><RowDefinition Height="112"/><RowDefinition Height="*"/><RowDefinition Height="92"/></Grid.RowDefinitions>
+
+    <Border Grid.Row="0" Background="{StaticResource Ink}">
+      <Grid Margin="34,20">
+        <Grid.ColumnDefinitions><ColumnDefinition Width="72"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <Border Width="62" Height="62" CornerRadius="5" Background="{StaticResource BrandYellow}" VerticalAlignment="Center"><Image Source="/assets/recap-brun-icon.jpg" Stretch="UniformToFill"/></Border>
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="18,0,0,0"><TextBlock Text="RÉCAP BRUN" FontFamily="Segoe UI" FontSize="29" FontWeight="Black" Foreground="White"/><TextBlock Text="TRANSMISSION DE FIN DE JOURNÉE" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Foreground="{StaticResource BrandYellow}" Margin="0,3,0,0"/></StackPanel>
+        <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"><TextBlock Text="DATE DU JOUR" FontSize="11" FontWeight="Bold" Foreground="#B9C4C7" HorizontalAlignment="Right"/><TextBlock x:Name="DateText" FontSize="18" FontWeight="Bold" Foreground="White" Margin="0,4,0,0" HorizontalAlignment="Right"/></StackPanel>
+      </Grid>
+    </Border>
+
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+      <StackPanel Margin="34,30,34,24">
+        <TextBlock Text="PRÉPARER LA RELÈVE" FontSize="13" FontWeight="Bold" Foreground="{StaticResource Muted}"/>
+        <TextBlock Text="Les infos essentielles pour demain" FontSize="26" FontWeight="Bold" Foreground="{StaticResource Ink}" Margin="0,4,0,22"/>
+
+        <Border Background="{StaticResource Panel}" BorderBrush="{StaticResource Line}" BorderThickness="1" Padding="22" Margin="0,0,0,22">
+          <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+            <Border Width="8" Height="56" Background="{StaticResource BrandYellow}" Margin="0,0,18,0"/>
+            <StackPanel Grid.Column="1"><TextBlock Text="ÉQUIPIER" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Muted}"/><TextBox x:Name="TeammateTextBox" Height="46" Width="280" HorizontalAlignment="Left" Padding="12,9" AcceptsReturn="False" TextChanged="InputChanged" ToolTip="Facultatif — indiquez qui prépare la fiche"/></StackPanel>
+          </Grid>
+        </Border>
+
+        <Grid>
+          <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="24"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+          <Border Grid.Column="0" Background="{StaticResource Panel}" BorderBrush="{StaticResource Line}" BorderThickness="1" Padding="22">
+            <DockPanel><StackPanel DockPanel.Dock="Top"><TextBlock Text="À FAIRE DEMAIN" FontSize="12" FontWeight="Bold" Foreground="{StaticResource Ink}"/><TextBlock Text="Ce qu’il reste à faire pour demain" FontSize="20" FontWeight="Bold" Foreground="{StaticResource Ink}" Margin="0,4,0,4"/><TextBlock Text="UNE TÂCHE PAR LIGNE" FontSize="11" FontWeight="Bold" Foreground="{StaticResource BrandYellow}"/></StackPanel><TextBox x:Name="RemainingTextBox" Margin="0,18,0,0" TextChanged="InputChanged"/></DockPanel>
+          </Border>
+          <Border Grid.Column="2" Background="{StaticResource Panel}" BorderBrush="{StaticResource Line}" BorderThickness="1" Padding="22">
+            <DockPanel><StackPanel DockPanel.Dock="Top"><TextBlock Text="OBJECTIFS" FontSize="12" FontWeight="Bold" Foreground="{StaticResource Ink}"/><TextBlock Text="Objectifs de demain" FontSize="20" FontWeight="Bold" Foreground="{StaticResource Ink}" Margin="0,4,0,4"/><TextBlock Text="LES PRIORITÉS DE L’ÉQUIPE" FontSize="11" FontWeight="Bold" Foreground="{StaticResource BrandYellow}"/></StackPanel><TextBox x:Name="GoalsTextBox" Margin="0,18,0,0" TextChanged="InputChanged"/></DockPanel>
+          </Border>
+        </Grid>
+      </StackPanel>
+    </ScrollViewer>
+
+    <Border Grid.Row="2" Background="White" BorderBrush="{StaticResource Line}" BorderThickness="0,1,0,0">
+      <Grid Margin="34,16"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Les données restent sur cet ordinateur." VerticalAlignment="Center" Foreground="{StaticResource Muted}" FontSize="12"/><Button Grid.Column="1" Content="Effacer" Click="ClearClick" Style="{StaticResource SecondaryButton}" MinWidth="120"/><Button Grid.Column="2" Content="IMPRIMER LA FICHE" Click="PrintClick" Style="{StaticResource PrimaryButton}" MinWidth="205"/></Grid>
+    </Border>
   </Grid>
 </Window>

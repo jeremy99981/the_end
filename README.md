@@ -2,6 +2,8 @@
 
 Récap Brun est une petite application Windows portable destinée à préparer la transmission de fin de journée d’un magasin. Elle permet de noter ce qu’il reste à faire et les objectifs du lendemain, puis d’imprimer une fiche A4 claire avec la boîte de dialogue d’impression native de Windows.
 
+La v1.3 reprend l’icône fournie pour le raccourci Windows et adopte une direction visuelle inspirée de l’univers Electro Dépôt : contraste noir/jaune, surfaces blanches, libellés en capitales et actions fortement visibles.
+
 ## Utilisation
 
 Générer `RecapBrun.exe` avec le script de publication, le placer dans un dossier accessible (Bureau, Documents ou clé USB), puis le lancer par double-clic. Aucune installation, élévation UAC ou version préalable de .NET n’est nécessaire.

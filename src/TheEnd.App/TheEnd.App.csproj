@@ -7,6 +7,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>x64</Platforms>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>../../assets/recap-brun.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup><ProjectReference Include="../TheEnd.Core/TheEnd.Core.csproj" /></ItemGroup>
+  <ItemGroup><Resource Include="../../assets/recap-brun-icon.jpg" /></ItemGroup>
 </Project>
