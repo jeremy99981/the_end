@@ -1,4 +1,4 @@
-<Window x:Class="TheEnd.App.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Récap Brun — Electro Dépôt" Icon="pack://application:,,,/assets/recap-brun.ico" Width="1080" Height="850" MinWidth="820" MinHeight="680" Background="{StaticResource Canvas}" WindowStartupLocation="CenterScreen" UseLayoutRounding="True" SnapsToDevicePixels="True">
+<Window x:Class="TheEnd.App.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Récap Brun — Electro Dépôt" Icon="pack://application:,,,/assets/recap-brun-icon-transparent.png" Width="1080" Height="850" MinWidth="820" MinHeight="680" Background="{StaticResource Canvas}" WindowStartupLocation="CenterScreen" UseLayoutRounding="True" SnapsToDevicePixels="True">
   <Grid>
     <Grid.RowDefinitions><RowDefinition Height="112"/><RowDefinition Height="*"/><RowDefinition Height="92"/></Grid.RowDefinitions>
 
