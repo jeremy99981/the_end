@@ -10,5 +10,5 @@
     <ApplicationIcon>../../assets/recap-brun.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup><ProjectReference Include="../TheEnd.Core/TheEnd.Core.csproj" /></ItemGroup>
-  <ItemGroup><Resource Include="../../assets/recap-brun-icon.jpg" /></ItemGroup>
+  <ItemGroup><Resource Include="../../assets/recap-brun-icon-transparent.png" /></ItemGroup>
 </Project>
