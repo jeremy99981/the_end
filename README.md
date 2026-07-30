@@ -8,6 +8,8 @@ La v1.3 reprend l’icône fournie pour le raccourci Windows, avec un fond exté
 
 Générer `RecapBrun.exe` avec le script de publication, le placer dans un dossier accessible (Bureau, Documents ou clé USB), puis le lancer par double-clic. Aucune installation, élévation UAC ou version préalable de .NET n’est nécessaire.
 
+Pour une installation classique sans aucun droit administrateur, utiliser `RecapBrun-Setup.exe`. L’installateur s’installe dans `%LOCALAPPDATA%\Programs\Récap Brun`, crée les raccourcis Bureau/Menu Démarrer pour l’utilisateur courant et ajoute une désinstallation Windows. Aucun service, pilote, fichier système ou registre machine n’est modifié.
+
 La date du jour est remplie automatiquement. Le champ équipier est facultatif. Le brouillon est sauvegardé automatiquement dans `%LOCALAPPDATA%\RecapBrun\draft.json` et une restauration est proposée au prochain démarrage. Les raccourcis sont `Ctrl+P` pour imprimer et `Ctrl+Maj+Suppr` pour effacer après confirmation.
 
 `Imprimer` ouvre le dialogue natif Windows : l’utilisateur choisit l’imprimante, les copies, l’orientation et toutes les options exposées par le pilote. La fiche est composée sur une seule page A4, utilise toute la largeur utile et réduit automatiquement le contenu si les textes sont longs. Après une impression envoyée, l’effacement reste optionnel.
@@ -45,6 +47,16 @@ Le script `scripts/build-windows.sh` utilise le ciblage Windows du SDK .NET pour
 ```
 
 Le résultat est `artifacts/RecapBrun-Windows-x64/RecapBrun.exe`. Le dossier `artifacts/` est ignoré par Git. Le fichier obtenu peut être copié sur le Bureau, dans Documents, sur une clé USB ou dans un dossier partagé Windows.
+
+## Générer l’installateur Windows
+
+Après le build de l’EXE, avec NSIS installé :
+
+```bash
+./scripts/build-installer.sh
+```
+
+Le résultat est `artifacts/RecapBrun-Setup-1.4.0.exe`. Cet installateur est destiné à une machine Windows et ne nécessite aucune élévation UAC.
 
 ## Sécurité et données
 
